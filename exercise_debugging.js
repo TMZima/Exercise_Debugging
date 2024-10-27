@@ -5,6 +5,7 @@ const accounts = [
 
 function getAccountById(id) {
   for (const account of accounts) {
+    // Changed == to === for strict equality comparison.
     if (account.id === id) {
       return account;
     }
@@ -12,6 +13,20 @@ function getAccountById(id) {
 }
 
 function createAccount(newAccountId, newAccountOwner) {
+  // Added check to prevent creating duplicate accounts.
+  const account = getAccountById(newAccountId);
+  if (account) {
+    throw new Error("Account ID already exists");
+  }
+  // Added check for non-numeric and negative account IDs.
+  if (!Number.isInteger(newAccountId) || newAccountId <= 0) {
+    throw new Error("Invalid account ID: The ID must be a positive integer.");
+  }
+  // Added check for non-string or empty owner name.
+  if (typeof newAccountOwner !== "string" || newAccountOwner.trim() === "") {
+    throw new Error("Invalid owner name: The name must be a non-empty string.");
+  }
+  // Add the new account to the accounts array if it passes all checks.
   accounts.push({
     id: newAccountId,
     owner: newAccountOwner,
@@ -65,7 +80,7 @@ function transferMoney(fromAccountId, toAccountId, amount) {
 /*
 Hints:
 
-getAccountById("1");
+getAccountById("1"); Corrected by using === for strict equality comparison.
 
 createAccount(1, "Alice");
 createAccount("3", "Charlie");
