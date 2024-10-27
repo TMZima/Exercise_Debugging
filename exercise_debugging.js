@@ -5,7 +5,7 @@ const accounts = [
 
 function getAccountById(id) {
   for (const account of accounts) {
-    if (account.id == id) {
+    if (account.id === id) {
       return account;
     }
   }
