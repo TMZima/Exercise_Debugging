@@ -77,13 +77,22 @@ function transferMoney(fromAccountId, toAccountId, amount) {
   if (!fromAccount) {
     throw new Error("Source account not found.");
   }
-
-  if (!Number.isFinite(amount) || amount < 0) {
+  // Added check for destination account not found.
+  if (!toAccount) {
+    throw new Error("Destination account not found.");
+  }
+  // Corrected check to ensure amount is a positive finite number greater than zero.
+  if (!Number.isFinite(amount) || amount <= 0) {
     throw new Error(
       "Invalid value for transfer amount: The amount must be a positive finite number."
     );
   }
-
+  // Added check for insufficient funds in the source account.
+  if (fromAccount.balance < amount) {
+    throw new Error("Insufficient funds in the source account.");
+  }
+  // Added an assignment to the source account before updating the destination account.
+  fromAccount.balance -= amount;
   toAccount.balance += amount;
 }
 
@@ -116,4 +125,5 @@ withdrawMoney(1, 501)
 transferMoney(1, 4, 100)
 transferMoney(1, 2, 501);
 transferMoney(1, 2, 100);
+*Corrected by adding checks for destination account not found, insufficient funds in the source account, and added an assignment to the source account before updating the destination account. Also, corrected the check to ensure amount is a positive finite number greater than zero.
 */
