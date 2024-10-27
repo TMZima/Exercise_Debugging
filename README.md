@@ -12,3 +12,8 @@ As a systems engineer 🧑‍💻 in the Rich Bank 🏦, you know:
 - 🛫 Account holders can transfer their money to another account holder's account using IDs if the amount to be transferred is greater than 0, of course! (See: `transferMoney`).
 
 The starter code is full of bugs. Your task is fixing the bugs using the knowledge above.
+
+💡 Hints:
+
+- At the end of the `rich-bank.js` file, you will find function calls, each representing a hint of a bug.
+- You might be fixing an equality check, adding code logic, or throwing an error where missing.
