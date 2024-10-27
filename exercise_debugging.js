@@ -56,11 +56,15 @@ function withdrawMoney(accountId, amount) {
   if (!account) {
     throw new Error("Account not found.");
   }
-
-  if (!Number.isFinite(amount)) {
+  // Added check for amounts less than or equal to zero.
+  if (!Number.isFinite(amount) || amount <= 0) {
     throw new Error(
       "Invalid value for withdrawal amount: The amount must be a finite number."
     );
+  }
+  // Added check for insufficient funds in the account.
+  if (account.balance < amount) {
+    throw new Error("Insufficient funds in the account.");
   }
 
   account.balance -= amount;
@@ -102,10 +106,12 @@ depositMoney(1, -300)
 depositMoney(1, 0)
 depositMoney(1, Infinity)
 depositMoney(4, 100)
+*Corrected by adding checks for non-numeric and negative deposit amounts.
 
 withdrawMoney(1, -100)
 withdrawMoney(1, 0)
 withdrawMoney(1, 501)
+*Corrected by adding checks for amounts less than or equal to zero, and insufficient funds in the account.
 
 transferMoney(1, 4, 100)
 transferMoney(1, 2, 501);
