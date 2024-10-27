@@ -40,6 +40,12 @@ function depositMoney(accountId, amount) {
   if (!account) {
     throw new Error("Account not found");
   }
+  // Added check for non-numeric and negative deposit amounts.
+  if (!Number.isFinite(amount) || amount <= 0) {
+    throw new Error(
+      "Invalid value for deposit amount: The amount must be a finite number."
+    );
+  }
 
   account.balance += amount;
 }
@@ -80,7 +86,8 @@ function transferMoney(fromAccountId, toAccountId, amount) {
 /*
 Hints:
 
-getAccountById("1"); Corrected by using === for strict equality comparison.
+getAccountById("1"); 
+*Corrected by using === for strict equality comparison.
 
 createAccount(1, "Alice");
 createAccount("3", "Charlie");
@@ -88,6 +95,7 @@ createAccount(-3, "Charlie");
 createAccount(3, ["Charlie"]);
 createAccount(3, "");
 createAccount(3, "  ");
+*Corrected by adding checks for duplicate accounts, non-numeric and negative account IDs, and non-string or empty owner names.
 
 depositMoney(1, "300")
 depositMoney(1, -300)
